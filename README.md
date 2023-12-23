@@ -6,16 +6,18 @@ This Telegram bot allows users to search for weather information using the OpenW
 
 ## Features
 
-    Search for current weather data by city name.
-    Get a 5-day weather forecast.
-    Inline query support for quick weather updates.
+- Search for current weather data by city name.
+
+- Get a 5-day weather forecast.
+
+- Inline query support for quick weather updates.
 
 ## Requirements
 
-    Python 3
-    Telegram Bot Token
-    OpenWeather API Key
-    Libraries: requests, python-telegram-bot
+- Python 3
+- Telegram Bot Token
+- OpenWeather API Key
+- Libraries: requests, python-telegram-bot
 
 ## Setup
 
@@ -24,12 +26,15 @@ Install the required Python packages with:
     pip install -r requirements.txt
 
 
-You can set the Telegram Bot Token and the OpenWeather API Key using export 
+You can set the Telegram Bot Token and the OpenWeather API Key using export:
 
     export BOT_TOKEN=your_telegram_bot_token
     export OW_API_KEY=your_openweather_api_key
 
 But you can also create a .env file with the token/key inside of it.
+
+- Remember that the bot needs to be setted to inline.
+
 
 ## Usage
 

@@ -11,6 +11,14 @@ logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 
+def start(update: Update, context: CallbackContext) -> None:
+    update.message.reply_text("Welcome to the Weather Bot! Type the name of a city to get weather updates.")
+
+
+def help(update: Update, context: CallbackContext) -> None:
+    update.message.reply_text("Type the name of a city in inline mode to get weather information.\nFor example:\n@YourBotName New York\nOr, if you want a 5-day forecast:\n@YourBotName forecast New York")
+
+
 def get_weather(city: str):
     url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={os.environ.get('OW_API_KEY')}&units=metric"
     response = requests.get(url)
@@ -23,12 +31,20 @@ def get_forecast(city: str):
     return response.json()
 
 
-def start(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text("Welcome to the Weather Bot! Type the name of a city to get weather updates.")
+def get_coordinates(city: str):
+    url = f"http://api.openweathermap.org/geo/1.0/direct?q={city}&limit=1&appid={os.environ.get('OW_API_KEY')}"
+    response = requests.get(url)
+    data = response.json()
+    if data:
+        return data[0]['lat'], data[0]['lon']
+    else:
+        return None, None
 
 
-def help(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text("Type the name of a city in inline mode to get weather information.\nFor example:\n@YourBotName New York\nOr, if you want a 5-day forecast:\n@YourBotName forecast New York")
+def get_air_pollution(lat: str, lon: str):
+    url = f"http://api.openweathermap.org/data/2.5/air_pollution?lat={lat}&lon={lon}&appid={os.environ.get('OW_API_KEY')}"
+    response = requests.get(url)
+    return response.json()
 
 
 def create_article(title, message):
@@ -58,6 +74,17 @@ def inlinequery(update: Update, context: CallbackContext) -> None:
     query = update.inline_query.query
     results = []
 
+    if not query.strip():
+        results.append(InlineQueryResultArticle(
+            id=uuid4(),
+            title="Type a city name to get weather information.",
+            input_message_content=InputTextMessageContent(
+                message_text="Please type a city name to get weather information."
+            )
+        ))
+        update.inline_query.answer(results, cache_time=10)
+        return
+
     if query.lower().startswith("forecast "):
         city = query[8:].strip()
         forecast_data = get_forecast(city)
@@ -69,9 +96,11 @@ def inlinequery(update: Update, context: CallbackContext) -> None:
 
     else:
         weather_data = get_weather(query)
+        lat, lon = get_coordinates(query)
+        air_pollution = get_air_pollution(lat, lon)
         if weather_data and 'weather' in weather_data:
             title = f"Current Weather in {query.title()}"
-            description = f"Temp: {weather_data['main']['temp']}°C, {weather_data['weather'][0]['description'].title()}"
+            description = f"Temp: {weather_data['main']['temp']}°C, {weather_data['weather'][0]['description'].title()}.\nAir Pollution Index (1-5): {air_pollution['list'][0]['main']['aqi']}"
             results.append(create_article(title, description))
 
     update.inline_query.answer(results, cache_time=10)

@@ -10,6 +10,8 @@ This Telegram bot allows users to search for weather information using the OpenW
 
 - Get a 5-day weather forecast.
 
+- Get the Air Pullution Index (AQI: 1 - 5).
+
 - Inline query support for quick weather updates.
 
 ## Requirements
@@ -54,7 +56,8 @@ In Telegram, use the bot's username and the name of the city that you want to kn
 The outputs, respectively, should look something like this:
 
     Current Weather in Fortaleza
-    Temp: 28.61°C, Few Clouds
+    Temp: 31.02°C, Few Clouds.
+    Air Pollution Index (1-5): 1
         
     5-Day Forecast for Fortaleza
     2023-12-23: 30.26°C, Clear Sky

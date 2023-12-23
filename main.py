@@ -28,7 +28,7 @@ def start(update: Update, context: CallbackContext) -> None:
 
 
 def help(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text("Type the name of a city in inline mode to get weather information. For example, '@YourBotName New York'.")
+    update.message.reply_text("Type the name of a city in inline mode to get weather information.\nFor example:\n@YourBotName New York\nOr, if you want a 5-day forecast:\n@YourBotName forecast New York")
 
 
 def create_article(title, message):

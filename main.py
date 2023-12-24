@@ -10,6 +10,24 @@ from telegram.ext import Updater, InlineQueryHandler, CommandHandler, CallbackCo
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+conditions = {
+    "Thunderstorm": "⛈️",  # Thunderstorms
+    "Drizzle": "🌧️",  # Drizzle
+    "Rain": "🌦️",  # Rain
+    "Snow": "❄️",  # Snow
+    "Mist": "🌫️",  # Mist
+    "Smoke": "💨",  # Smoke
+    "Haze": "🌁",  # Haze
+    "Dust": "🌪️",  # Dust whirls
+    "Fog": "🌫️",  # Fog
+    "Sand": "🏜️",  # Sand
+    "Ash": "🌋",  # Volcanic ash
+    "Squall": "🌬️",  # Squalls
+    "Tornado": "🌪️",  # Tornado
+    "Clear": "☀️",  # Clear sky
+    "Clouds": "☁️"  # Clouds
+}
+
 
 def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_text("Welcome to the Weather Bot! Type the name of a city to get weather updates.")
@@ -64,9 +82,11 @@ def format_forecast_message(forecast_data):
     for day_data in forecast_data['list']:
         forecast_date = datetime.datetime.fromtimestamp(day_data['dt'])
         if forecast_date.hour == 12:
+            condition = day_data['weather'][0]['main']
+            emoji = conditions.get(condition, "")
             temp = day_data['main']['temp']
             description = day_data['weather'][0]['description'].title()
-            message_lines.append(f"{forecast_date.date()}: {temp}°C, {description}")
+            message_lines.append(f"{forecast_date.date()}: {temp}°C, {description} {emoji}")
     return "\n".join(message_lines)
 
 
@@ -99,8 +119,10 @@ def inlinequery(update: Update, context: CallbackContext) -> None:
         lat, lon = get_coordinates(query)
         air_pollution = get_air_pollution(lat, lon)
         if weather_data and 'weather' in weather_data:
+            condition = weather_data['weather'][0]['main']
+            emoji = conditions.get(condition, "")
             title = f"Current Weather in {query.title()}"
-            description = f"Temp: {weather_data['main']['temp']}°C, {weather_data['weather'][0]['description'].title()}.\nAir Pollution Index (1-5): {air_pollution['list'][0]['main']['aqi']}"
+            description = f"Temp: {weather_data['main']['temp']}°C, {weather_data['weather'][0]['description'].title()} {emoji}\nAir Pollution Index (1-5): {air_pollution['list'][0]['main']['aqi']}"
             results.append(create_article(title, description))
 
     update.inline_query.answer(results, cache_time=10)

@@ -110,8 +110,12 @@ def format_forecast_message(forecast_data):
             temp = day_data['main']['temp']
             description = day_data['weather'][0]['description'].title()
             message_lines.append(
-                f"{forecast_date.date()}: {temp}°C, {description} {emoji}")
+                f"{forecast_date.date()}: {temp}°C / {celsius_to_fahrenheit(temp)}°F, {description} {emoji}")
     return "\n".join(message_lines)
+
+
+def celsius_to_fahrenheit(celsius):
+    return f"{celsius * 9 / 5 + 32 :.2f}"
 
 
 def inlinequery(update: Update, context: CallbackContext) -> None:
@@ -248,7 +252,7 @@ def inlinequery(update: Update, context: CallbackContext) -> None:
             condition = weather_data['weather'][0]['main']
             emoji = conditions.get(condition, "")
             title = f"Current Weather in {query.title()}"
-            description = f"Temp: {weather_data['main']['temp']}°C, {weather_data['weather'][0]['description'].title()} {emoji}\nAir Pollution Index (1-5): {air_pollution['list'][0]['main']['aqi']}"
+            description = f"Temp: {weather_data['main']['temp']}°C / {celsius_to_fahrenheit(weather_data['main']['temp'])}°F.\nRight Now: {weather_data['weather'][0]['description'].title()} {emoji}\nAir Pollution Index (1-5): {air_pollution['list'][0]['main']['aqi']}"
             results.append(create_article(title, description))
 
     update.inline_query.answer(results, cache_time=10)

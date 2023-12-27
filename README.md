@@ -64,15 +64,16 @@ In Telegram, use the bot's username and the name of the city that you want to kn
 The outputs, respectively, should look something like this:
 
     Current Weather in Fortaleza
-    Temp: 27.07°C, Scattered Clouds ☁️
+    Temp: 28.07°C / 82.53°F.
+    Right Now: Broken Clouds ☁️
     Air Pollution Index (1-5): 1
 
     5-Day Forecast for Fortaleza
-    2023-12-24: 30.14°C, Scattered Clouds ☁️
-    2023-12-25: 29.93°C, Scattered Clouds ☁️
-    2023-12-26: 29.24°C, Light Rain 🌦️
-    2023-12-27: 29.57°C, Light Rain 🌦️
-    2023-12-28: 29.79°C, Broken Clouds ☁️
+    2023-12-27: 30.38°C / 86.68°F, Scattered Clouds ☁️
+    2023-12-28: 29.6°C / 85.28°F, Light Rain 🌦️
+    2023-12-29: 29.57°C / 85.23°F, Light Rain 🌦️
+    2023-12-30: 29.98°C / 85.96°F, Light Rain 🌦️
+    2023-12-31: 29.94°C / 85.89°F, Light Rain 🌦️
 
 Clouds Map for Worldwide: View Map
 

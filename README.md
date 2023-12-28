@@ -21,7 +21,7 @@ This Telegram bot allows users to search for weather information using the OpenW
 - Python 3
 - Telegram Bot Token
 - OpenWeather API Key
-- Libraries: requests, python-telegram-bot
+- Libraries: aiohttp, python-telegram-bot
 
 ## Setup
 

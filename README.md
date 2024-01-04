@@ -8,9 +8,11 @@ This Telegram bot allows users to search for weather information using the OpenW
 
 - Search for current weather data by city name.
 
-- Get a 5-day weather forecast.
+- Get information of the current date and time of the city.
 
-- Get the Air Pullution Index (AQI).
+- Get the current weather information (temperature, pressure, wind speed, humidity, cloud cover...)
+
+- Get a 5-day weather forecast.
 
 - Access various weather maps including clouds, precipitation, pressure, wind, and temperature maps.
 
@@ -50,10 +52,9 @@ Or, if you created the .env file:
     
     set -a; source .env; set +a; python main.py   
 
-In Telegram, use the bot's username and the name of the city that you want to know the current weather, type forecast followed by the name of the city to get a 5 day weather forecast or even type map followed by a weather type map and the city name. For example:
+In Telegram, use the bot's username and the name of the city that you want to know the current weather information or type map followed by a weather type map and the city name. For example:
 
     @YourBotUsername Fortaleza
-    @YourBotUsername forecast Fortaleza
     @YourBotUsername map clouds Worldwide
     @YourBotUsername map precipitation Worldwide
     @YourBotUsername map pressure Worldwide
@@ -63,17 +64,21 @@ In Telegram, use the bot's username and the name of the city that you want to kn
 
 The outputs, respectively, should look something like this:
 
-    Current Weather in Fortaleza
-    Temp: 28.07°C / 82.53°F.
-    Right Now: Broken Clouds ☁️
-    Air Pollution Index (1-5): 1
+    Weather in Fortaleza-BR -3.72 / -38.52
+    As Of: 2024-01-04 06:37:08
+    Right Now: Scattered Clouds ☁️
+    Temp: 28.32°C / 82.98°F
+    Pressure: 1012 hPa
+    Wind Speed: 2.57 m/s
+    Humidity: 84%
+    Cloud Cover: 40%
 
-    5-Day Forecast for Fortaleza
-    2023-12-27: 30.38°C / 86.68°F, Scattered Clouds ☁️
-    2023-12-28: 29.6°C / 85.28°F, Light Rain 🌦️
-    2023-12-29: 29.57°C / 85.23°F, Light Rain 🌦️
-    2023-12-30: 29.98°C / 85.96°F, Light Rain 🌦️
-    2023-12-31: 29.94°C / 85.89°F, Light Rain 🌦️
+    Forecast Summary:
+    2024-01-04: 29.53°C / 85.15°F, Few Clouds ☁️
+    2024-01-05: 30.13°C / 86.23°F, Scattered Clouds ☁️
+    2024-01-06: 30.22°C / 86.40°F, Light Rain 🌦️
+    2024-01-07: 30.06°C / 86.11°F, Scattered Clouds ☁️
+    2024-01-08: 30.35°C / 86.63°F, Light Rain 🌦️
 
 Clouds Map for Worldwide: View Map
 

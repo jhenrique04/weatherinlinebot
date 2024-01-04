@@ -58,3 +58,24 @@ def format_forecast_message(forecast_data):
             message_lines.append(
                 f"{forecast_date.date()}: {temp}°C / {celsius_to_fahrenheit(temp)}°F, {description} {emoji}")
     return "\n".join(message_lines)
+
+
+def create_empty_query_result():
+    return InlineQueryResultArticle(
+        id=uuid4(),
+        title="Type a command",
+        input_message_content=InputTextMessageContent(
+            message_text="Please type a command to use the bot."
+        )
+    )
+
+
+def create_invalid_command_result():
+    return InlineQueryResultArticle(
+        id=uuid4(),
+        title="Invalid command",
+        input_message_content=InputTextMessageContent(
+            message_text="This command is not recognized. Try 'map' followed by the map type and city name, or simply type a city name for current weather."
+        ),
+        description="Command not recognized"
+    )
